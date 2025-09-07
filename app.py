@@ -1,7 +1,8 @@
 import streamlit as st
 import numpy as np
-import pandas as pd
 import re
+import pandas as pd
+import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -12,7 +13,7 @@ from sklearn.metrics import accuracy_score
 # Load data
 news_df = pd.read_csv('train.csv')
 news_df = news_df.fillna(' ')
-news_df['content'] = news_df['author'] + ' ' + news_df['title']
+news_df['content'] = news_df['author'] + " " + news_df['title']
 X = news_df.drop('label', axis=1)
 y = news_df['label']
 
@@ -46,7 +47,7 @@ model.fit(X_train,Y_train)
 
 # website
 st.title('Fake News Detector')
-input_text = st.text_input('Enter news Article')
+input_text = st.text_input('Enter News Article')
 
 def prediction(input_text):
     input_data = vector.transform([input_text])
